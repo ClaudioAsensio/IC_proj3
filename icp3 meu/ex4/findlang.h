@@ -70,6 +70,14 @@ class findlang{
         
     }
 
+    void calculateDistance(){
+        //get the distance from the model
+        // model->compare(text);
+        // models[lModel] = model->getEstimate();
+        // printModels();
+        // textLanguage();
+    }
+
     string getlang(){
         return this->lang;
     }

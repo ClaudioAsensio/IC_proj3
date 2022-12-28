@@ -1,4 +1,4 @@
-#include "locatelang.h"
+#include "findlang.h"
 
 int main(int argc, char **argv)
 {
@@ -12,52 +12,65 @@ int main(int argc, char **argv)
     string sourceFile = argv[3];
     string sFile = argv[4];
     string destinyFile = argv[argc - 1];
+    //map to store the segments of the destiny file
+    map<int,string> segments; 
+    //map to store and id and a map with segment and language
+    map<int,map<string,string>> segmentsLang;
     cout << "Choosen k value: " << k << endl;
     cout << "Choosen smoothing parameter: " << alpha << endl;
     cout << "--------------------------" << endl;
-    // cout << "Choosen text file for model: " << sourceFile << endl;
+ 
 
-    //array of languages to check with size of the arguments - 3
-    string languages[argc-3];
-
-
-    // findlang findLang(k, alpha,destinyFile);
-
-    // findLang.buildModel(sourceFile);
-    // findLang.buildModel(sFile);
-
-    //while have arguments use them to build the models
-    for(int i = 3; i < argc - 1; i++)
-    {
-        // string sourceFile = argv[i];
-        // cout << "--------------------------" << endl;    
-        // cout << "Choosen text file for model: " << sourceFile << endl;
-        // locatelang.findlang.buildModel(sourceFile);
-        //store the languages in the array
-        languages[i-3] = argv[i];
-        cout << "--------------------------" << endl;
-        cout << "Choosen text file for model: " << languages[i-3] << endl;
+    //open destiny file
+    ifstream file(destinyFile);
+    string line;
+    int i = 0;
+    //read the file and split on the .
+    while(getline(file,line,'.') && !line.empty()){
+        //store the segments in the segments map
+        cout<<"line: "<<line<<endl;
+        segments[i] = line;
+        i++;
     }
-    cout << "--------------------------" << endl;
-    locatelang locatelang(k, alpha,destinyFile,languages);
-    locatelang.getSegments();
-    cout << "---------------------2-----" << endl;
-    locatelang.compareSegment();
 
+    file.close();
 
-    // findLang.buildModel("ENG.txt");
-    // findLang.buildModel("FR.txt");
-    // findLang.buildModel("ITA.txt");
-    cout << "--------------------------" << endl;
-    cout << "Choosen text file to compare: " << destinyFile << endl;
-    
-    // cout<< "the language is:"<<findLang.getlang()<<endl;
-    // LANG lang(k, alpha);
-    // lang.build(sourceFile);
-    // cout << "--------------------------" << endl;
-    // cout << "Choosen text file to compare: " << destinyFile << endl;
-    // lang.compare(destinyFile);
+    //write 1 segment at a time to a aux file and call findlang
+    for(int i = 0; i < segments.size(); i++){
+        ofstream auxFile;
+        //if file not empty delete the content
+        if(auxFile.is_open()){
+            auxFile.close();
+            auxFile.open("auxFile.txt", ios::trunc);
+        }
+        else
+            auxFile.open("auxFile.txt");
+            auxFile << segments[i];
+            auxFile.close();
+            findlang findlang(k, alpha, "auxFile.txt");
+            for (int i = 3; i < argc - 1; i++)
+            {
+                sourceFile = argv[i];
+                cout << "Choosen text file for model: " << sourceFile << endl;
+                cout << "--------------------------" << endl;
+                findlang.buildModel(sourceFile);
+                cout << "--------------------------" << endl;
+            }
+            cout << "Choosen destiny file: " << destinyFile << endl;
+            cout << "--------------------------" << endl;
+            // findlang.getlang();
+            //fill the map with the segment and the language
+            segmentsLang[i][segments[i]] = findlang.getlang();
+            //destroy the object
+            // findlang.~findlang();
+        // findlang("auxFile.txt", sFile, destinyFile, k, alpha);
+    }
 
+    //print the segments and the language
+    for(int i = 0; i < segmentsLang.size(); i++){
+        cout<<"segment: "<<segmentsLang[i].begin()->first<<endl;
+        cout<<"language: "<<segmentsLang[i].begin()->second<<endl;
+    }
     return 0;
 }
 

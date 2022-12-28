@@ -247,11 +247,11 @@ class FCM
                 // else character was not found in given context -> compute probability with alpha
                 if(contextMap->find(character) != contextMap->end())
                     return (*probability)[cont][character];
-                return (((double) alpha) / ((*context)[cont].count + charCount * alpha));
 
             }
+            return (((double) alpha) / ((*context)[cont].count + charCount * alpha));
             // given context was not found -> compute probability based on alphabet only
-            return (1.0 / 26);//should be an if to ignore the letter if its not in the alphabet
+            // return (1.0 / 26);//should be an if to ignore the letter if its not in the alphabet
         }
 
         // open file
