@@ -231,8 +231,6 @@ class FCM
         }
 
         // count all the diffrent characters in the file
-
-        // 
         
         // returns a probability associated with the given context character based on model information
         double getCharProbability(string cont, char character)

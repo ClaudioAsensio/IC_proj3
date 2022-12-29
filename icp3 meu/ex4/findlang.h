@@ -38,14 +38,18 @@ class findlang{
         cout<<fPath<<endl;
         language->build(fPath);
         language->compare(text);
+        // language->compareBits(text, fPath);
+        cout<<"Model built"<<endl;
+        // language->printSegmentsLang();
         models[fPath] = language->getEstimate(); // estimativa de bits
         printModels();
         textLanguage();
-        cout<<"Model built"<<endl;
-        cout<<"Model closed"<<endl;
+        // cout<<"Model built"<<endl;
+        // cout<<"Model closed"<<endl;
         //get bits per char      
     }
 
+    
     //print the models map
 
     void printModels(){
@@ -70,13 +74,6 @@ class findlang{
         
     }
 
-    void calculateDistance(){
-        //get the distance from the model
-        // model->compare(text);
-        // models[lModel] = model->getEstimate();
-        // printModels();
-        // textLanguage();
-    }
 
     string getlang(){
         return this->lang;

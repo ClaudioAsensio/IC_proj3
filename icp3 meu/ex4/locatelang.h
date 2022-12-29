@@ -1,4 +1,4 @@
-#include "findlang.h"
+#include "lang.h"
 #include <iostream>
 #include <string>
 #include <map>
@@ -17,12 +17,13 @@ class locatelang{
     float alpha;
     string destinyFile;
     string *languagesTo;
-    findlang *findLang;
+    LANG *language;
     //array to store the segments of the destiny file
     // string *segments;
     //map to store the segments and the language and the offset of the segment in the destiny file
-    map <string,map<string, int> > segmentsLang;
-
+    map <int,map<string, float> > segmentsLang;
+    map<int,string> located;
+    // contex <bits,lang>
     //segment array
     map<int, string> segments;
 
@@ -34,107 +35,74 @@ class locatelang{
     public:
 
     //constructor
-    locatelang(int k, float alpha,string destinyFile, string *languagesTo){
+    locatelang(int k, float alpha,string destinyFile){
         this->k = k;
         this->alpha = alpha;
         this->destinyFile = destinyFile;
-        this->languagesTo = languagesTo;
+        // this->languagesTo = languagesTo;
+        language = new LANG(k, alpha);
         // this->findLang = new findlang(k,alpha,destinyFile);
         cout<<"Locate lang constructor"<<endl;
         
     }
 
-    //methods
-
-    //compare segments of the destiny file with the models
-
-    //open destiny file and read it and split it in segments on the .
-
-    void getSegments(){
-        //open destiny file
-        ifstream file(destinyFile);
-        string line;
-        int i = 0;
-        //read the file and split on the .
-        while(getline(file,line,'.')){
-            //store the segments in the segments array
-            cout<<"line: "<<line<<endl;
-            this->segments[i] = line;
-            cout<<"destiny file: "<<destinyFile<<endl;
-            i++;
-
-
-        }
-
-
-
-
-
-
-        // while(getline(file,line)){
-        //     //split the line in segments
-        //     cout<<"line: "<<line<<endl;
-        //     this->segments[i] = line;
-        //     cout<<"destiny file: "<<destinyFile<<endl;
-        //     i++;
-        // }
-        //close the file
-        file.close();
-        //compare the segments with the models
+    void buildModelLocate(string fPath){
+        cout<<fPath<<endl;
+        language->build(fPath);
+        language->compareBits(this->destinyFile,fPath);
+        // language->compareBits(text, fPath);
+        cout<<"Model built"<<endl;
+        // locate();
     }
 
-    void compareSegment(){
-       
-        //go trough the segments array
-        for(int i = 0; i < sizeof(segments); i++){
-            //for each segment write it to a text file
-            ofstream file("text.txt");
-            file<<segments[i];
-            file.close();
-            //compare the segment with the models
-            findlang *findLang = new findlang(k,alpha,"text.txt"); //the text is a file path with one segment of the destiny file
-            cout<<"segment: "<<segments[i]<<endl;
-            //go trough the languagesTo array and build the models
-            for(int i = 0; i < sizeof(this->languagesTo); i++){
-                findLang->buildModel(this->languagesTo[i]);
+    void locate(){
+        cout<<"Locate"<<endl;
+        this->segmentsLang = language->getSegmentsLang();
+        cout<<"Size of segmentsLang: "<<this->segmentsLang.size() <<endl;
+        
+
+        //go through the segmentLang map and get the language with the less bits
+        for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
+            cout<<"ofsset: "<<it->first<<endl;
+            string Slang=it->second.begin()->first;
+            float min=it->second.begin()->second;
+            for(auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
+                if(it2->second < min){
+                    min = it2->second;
+                    Slang = it2->first;
+                }
+                
+                
+                
+
+
+
             }
-
-            //get the language with the smallest distance
-            string lang = findLang->getlang();
-            cout<<"segment: "<<segments[i]<<" language: "<<lang<<endl;
-
-            //store the segment and the language in the segmentsLang map
-            // segmentsLang[content][sizeof(segmentsLang)] = lang;  
-
-            //store the segment and the language in the segmentsLang map
-            // segmentsLang[segments[i]][lang] = sizeof(segments[i]);  
+            located[it->first] = Slang;
+            cout<<"Final lang:"<<Slang<<" offset"<<it->first <<endl;
         }
-
-        //for each segment write it to a text file
-
-        
-        
-
-        // findlang *findLang = new findlang(k,alpha,text); //the text is a file path with one segment of the destiny file
-        // //go trough the languagesTo array and build the models
-        // for(int i = 0; i < sizeof(languagesTo); i++){
-        //     findLang->buildModel(languagesTo[i]);
+        //print the located map to a file
+        ofstream myfile;
+        myfile.open ("located.txt");
+        for(auto it = located.begin(); it != located.end(); it++){
+            myfile<<"offset: "<<it->first<<" lang: "<<it->second<<endl;
+        }
+        myfile.close();
+        // for(auto it = located.begin(); it != located.end(); it++){
+        //     cout<<"offset: "<<it->first<<" lang: "<<it->second<<endl;
         // }
-
-        // //get the language with the smallest distance
-        // string lang = findLang->getlang();
-        // cout<<"segment: "<<content<<" language: "<<lang<<endl;
-
-        //store the segment and the language in the segmentsLang map
-        // segmentsLang[content][sizeof(segmentsLang)] = lang;  
-
-        //store the segment and the language in the segmentsLang map
-               
-
-
+        language->printSegmentsLang();
     }
 
+    
 
+    // void locateLang(){
+    //     //get the language->segmentsLang and make the comparation in each entry of the map,if the bits for a lang is less than the bits of the other lang, then the lang is the one with the less bits
+    //     for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
+    //         cout << it->first << " " << it->second << endl;
+
+    //     } 
+    // }
 
 
     
