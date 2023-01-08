@@ -17,14 +17,12 @@ make clean                      # limpar programas de execução
 
 -----
 - Exercício 1:
-shell
-Inside the folder ex1:
+
 ./mainRun <k> <alfa> <textFile>                          
 
 
 - Exercício 2:
-shell
-Inside the folder ex2:
+
 ./mainRun <k> <alfa> <textFileModel> <textFiletoCompare>
 
 
