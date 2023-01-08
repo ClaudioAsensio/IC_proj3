@@ -62,23 +62,7 @@ class FCM
             return *context;
         }
 
-        // computes entropy distribution from probability table
-        // void entropy()
-        // {
-        //     double total_entropy = 0;
-        //     for(auto key : *probability)
-        //     {
-        //         for(auto value : key.second)
-        //         {
-        //             total_entropy += -log2(value.second) * value.second;
-        //             //cout << "value.second = " << value.second << endl;
-        //             //cout << "entropy: " << total_entropy << endl;
-        //         }
-        //     }
-        //     total_entropy /= totalCharacters;
-        //     cout <<"Entropy: " << total_entropy << endl;
-        //     cout << "Average bits / symbol: " << total_entropy << endl;
-        // }
+        
 
         // computes probability distribution from context model
         void getProbability()
@@ -119,16 +103,16 @@ class FCM
             while(inputFile >> noskipws >> character)
             {
                 // only consider letters
-                if(!isalpha(character))
+                if(isdigit(character)||character == ' ')
                     continue;
                 character = tolower(character);
-
+                // cout<<"totalCharacters:"<<totalCharacters<<endl;
                 //array to store the different characters
                 if(totalCharacters < k)
                 {
                     // initial context
                     buffer += character;
-                    
+                   
 
                 }
                 else
@@ -146,7 +130,7 @@ class FCM
             //get all the first characters of each context to the string diffchars if they are not already in it
             for(auto key : *context)
             {
-                if(diffchars.find(key.first[0]) == string::npos)
+                if(diffchars.find(key.first[0]) == string::npos && isalpha(key.first[0]))
                 {
                     diffchars+=key.first[0];
                     charCount++;
@@ -155,7 +139,7 @@ class FCM
 
             cout << "Total characters read: " << totalCharacters << endl;
             // countCharacters(fPath);
-            cout<<"string:"<<diffchars<<endl;
+            cout<<"Alphabet:"<<diffchars<<endl;
             cout << "Total different characters: " << charCount << endl;
             getProbability();
             calcmodelEntropy();
@@ -237,6 +221,7 @@ class FCM
             
         }
 
+        // count all the diffrent characters in the file
         
         // returns a probability associated with the given context character based on model information
         double getCharProbability(string cont, char character)
@@ -275,6 +260,8 @@ class FCM
             if(!inputFile.is_open())
                 return 1;
             inputFile.close();
+            totalCharacters = 0;
+            charCount = 0;
             return true;
         }
 

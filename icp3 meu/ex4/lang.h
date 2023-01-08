@@ -30,7 +30,6 @@ class LANG {
         bool build(string fPath)
         {
           bool b = fcm -> build(fPath);
-        //   fcm -> close();
           return b;
         }
 
@@ -47,9 +46,6 @@ class LANG {
             while(inputFile >> noskipws >> character)
             {
                 // only consider letters and letters with accents
-
-                
-
                 if(isdigit(character)||character == ' ')  
                     continue;
                 character = tolower(character);
@@ -63,28 +59,22 @@ class LANG {
                 {
                     // compute bits based on model
                     bits -= log2(fcm->getCharProbability(buffer, character));
-                    cout<<"buffer: "<<buffer<<endl;
-                    cout << "bits: " << bits << endl;
                     buffer = buffer.substr(1, k);
                     buffer += character;
-                    cout<<"buffer: "<<buffer<<endl;
                 }
                 totalCharacters++;
               //  fcm -> printCharProbability();
 
             }
-            cout<<"Estimativa:"<<bits<<endl;
             this->estimate = bits;
-            this->bits_per_char = bits /= totalCharacters;
-            // bits /= totalCharacters;
+            this->bits_per_char = bits / totalCharacters;
+            cout<<"Estimativa:"<<bits<<endl;
             cout <<"bits por caracter: " << this->bits_per_char << endl;
-            // cout << "Total characters read from destiny: " << totalCharacters << endl;
-            // cout << "Average bits / symbol (Destiny): " << bits << endl;
             close();
             return true;
         }
 
-        bool compareBits(string fPath,string lang){
+        bool compareBits(string fPath,string lang){ //only used in ex4
 
             totalCharacters = 0;
             offset = 0;
@@ -113,52 +103,23 @@ class LANG {
                 {
                     // compute bits based on model
                     bits -= log2(fcm->getCharProbability(buffer, character));
-                    //store in the the segmentsLang map
-                    
-                    // segmentsLang[buffer][bits] = lang;
-                    //if map is not empty in that offset check if the value bits is smaller than the one in the map
-                    // if(!segmentsLang[totalCharacters].empty()){
-                    //     //if the value is smaller than the one in the map, replace it
-                    //     if(bits < segmentsLang[totalCharacters][lang]){
-                    //         segmentsLang[totalCharacters][lang] = bits;
-                    //     }
-                    // }else{
-                    //     //if the map is empty, insert the value
-                    // }
-                    segmentsLang[offset][lang] = bits;
-                    
-                    // cout<<"buffer: "<<buffer<<endl;
-                    // cout<<"bits: "<<bits<<endl;
+                    segmentsLang[offset][lang] = -log2(fcm->getCharProbability(buffer, character));
                     buffer = buffer.substr(1, k);
                     buffer += character;
-                    // cout<<"buffer: "<<buffer<<endl;
                 }
                 totalCharacters++;
-                cout<<"offset: "<<offset<<endl;
-              //  fcm -> printCharProbability();
+                
 
             }
-            cout<<"Estimativa:"<<bits<<endl;
             this->estimate = bits;
-            this->bits_per_char = bits /= totalCharacters;
-            // bits /= totalCharacters;
+            this->bits_per_char = bits / totalCharacters;
+            cout<<"Estimativa:"<<bits<<endl;
             cout <<"bits por caracter: " << this->bits_per_char << endl;
-            // cout << "Total characters read from destiny: " << totalCharacters << endl;
-            // cout << "Average bits / symbol (Destiny): " << bits << endl;
             close();
             return true;
 
         }
 
-        //print the segmentsLang map
-        void printSegmentsLang(){
-            for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
-                cout<<"Offset: "<<it->first<<endl;
-                for(auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
-                    cout<<"Lang: "<<it2->first<<" Bits: "<<it2->second<<endl;
-                }
-            }
-        }
 
         //get the segmentsLang map
         map <int,map<string, float> > getSegmentsLang(){

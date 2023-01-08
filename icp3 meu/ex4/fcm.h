@@ -103,7 +103,7 @@ class FCM
             while(inputFile >> noskipws >> character)
             {
                 // only consider letters
-                if(!isalpha(character))
+                if(isdigit(character)||character == ' ')
                     continue;
                 character = tolower(character);
                 // cout<<"totalCharacters:"<<totalCharacters<<endl;
@@ -130,7 +130,7 @@ class FCM
             //get all the first characters of each context to the string diffchars if they are not already in it
             for(auto key : *context)
             {
-                if(diffchars.find(key.first[0]) == string::npos)
+                if(diffchars.find(key.first[0]) == string::npos && isalpha(key.first[0]))
                 {
                     diffchars+=key.first[0];
                     charCount++;
@@ -139,7 +139,7 @@ class FCM
 
             cout << "Total characters read: " << totalCharacters << endl;
             // countCharacters(fPath);
-            cout<<"string:"<<diffchars<<endl;
+            cout<<"Alphabet:"<<diffchars<<endl;
             cout << "Total different characters: " << charCount << endl;
             getProbability();
             calcmodelEntropy();
@@ -216,15 +216,6 @@ class FCM
 
             }
 
-            //context entropy
-            // double contextProbability = 0;
-            // for(auto key : *probability)
-            // {
-            //     for(auto value : key.second)
-            //     {
-            //         contextProbability -= value.second * log2(value.second);
-            //     }
-            // }
             cout << "Model entropy: " << modelEntropy << endl;
             cout<<"Alphabet size: "<<charCount<<endl;
             

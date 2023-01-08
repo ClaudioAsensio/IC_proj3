@@ -103,7 +103,7 @@ class FCM
             while(inputFile >> noskipws >> character)
             {
                 // only consider letters
-                if(!isalpha(character))
+                if(isdigit(character)||character == ' ')
                     continue;
                 character = tolower(character);
                 // cout<<"totalCharacters:"<<totalCharacters<<endl;
@@ -130,7 +130,7 @@ class FCM
             //get all the first characters of each context to the string diffchars if they are not already in it
             for(auto key : *context)
             {
-                if(diffchars.find(key.first[0]) == string::npos)
+                if(diffchars.find(key.first[0]) == string::npos && isalpha(key.first[0]))
                 {
                     diffchars+=key.first[0];
                     charCount++;
@@ -139,7 +139,7 @@ class FCM
 
             cout << "Total characters read: " << totalCharacters << endl;
             // countCharacters(fPath);
-            cout<<"string:"<<diffchars<<endl;
+            cout<<"Alphabet:"<<diffchars<<endl;
             cout << "Total different characters: " << charCount << endl;
             getProbability();
             calcmodelEntropy();
@@ -216,23 +216,12 @@ class FCM
 
             }
 
-            //context entropy
-            // double contextProbability = 0;
-            // for(auto key : *probability)
-            // {
-            //     for(auto value : key.second)
-            //     {
-            //         contextProbability -= value.second * log2(value.second);
-            //     }
-            // }
             cout << "Model entropy: " << modelEntropy << endl;
             cout<<"Alphabet size: "<<charCount<<endl;
             
         }
 
         // count all the diffrent characters in the file
-
-        // 
         
         // returns a probability associated with the given context character based on model information
         double getCharProbability(string cont, char character)
@@ -247,11 +236,11 @@ class FCM
                 // else character was not found in given context -> compute probability with alpha
                 if(contextMap->find(character) != contextMap->end())
                     return (*probability)[cont][character];
+                return (((double) alpha) / ((*context)[cont].count + charCount * alpha));
 
             }
-            return (((double) alpha) / ((*context)[cont].count + charCount * alpha));
             // given context was not found -> compute probability based on alphabet only
-            // return (1.0 / 26);//should be an if to ignore the letter if its not in the alphabet
+            return (1.0 / 26);//should be an if to ignore the letter if its not in the alphabet
         }
 
         // open file

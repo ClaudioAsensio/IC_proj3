@@ -17,8 +17,8 @@ int main(int argc, char **argv)
     fcm.build(fPath);
     // fcm.getContext();
     // fcm.printContext();
-    fcm.printProbability();
-    fcm.getContextProbability();
+    // fcm.printProbability();
+    // fcm.getContextProbability();
     // fcm.entropy();
     // fcm.calcmodelEntropy();
     fcm.close();

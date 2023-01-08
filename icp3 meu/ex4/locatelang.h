@@ -16,16 +16,9 @@ class locatelang{
     int k;
     float alpha;
     string destinyFile;
-    string *languagesTo;
     LANG *language;
-    //array to store the segments of the destiny file
-    // string *segments;
-    //map to store the segments and the language and the offset of the segment in the destiny file
     map <int,map<string, float> > segmentsLang;
     map<int,string> located;
-    // contex <bits,lang>
-    //segment array
-    map<int, string> segments;
 
 
 
@@ -39,71 +32,74 @@ class locatelang{
         this->k = k;
         this->alpha = alpha;
         this->destinyFile = destinyFile;
-        // this->languagesTo = languagesTo;
-        language = new LANG(k, alpha);
-        // this->findLang = new findlang(k,alpha,destinyFile);
         cout<<"Locate lang constructor"<<endl;
         
     }
 
     void buildModelLocate(string fPath){
-        cout<<fPath<<endl;
+        language = new LANG(k, alpha);
         language->build(fPath);
         language->compareBits(this->destinyFile,fPath);
-        // language->compareBits(text, fPath);
+        
+        if(this->segmentsLang.empty()){
+            this->segmentsLang = language->getSegmentsLang();
+        }else{
+            map <int,map<string, float> > segmentsLang2 = language->getSegmentsLang();
+            for(auto it = segmentsLang2.begin(); it != segmentsLang2.end(); it++){
+                for(auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
+                    this->segmentsLang[it->first][it2->first] = it2->second;
+                }
+            }
+
+        }
         cout<<"Model built"<<endl;
-        // locate();
+       
     }
+
+    void printSegmentsLang(){
+            for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
+                // cout<<"Offset: "<<it->first<<endl;
+                for(auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
+                    // cout<<"Lang: "<<it2->first<<" Bits: "<<it2->second<<endl;
+                }
+            }
+        }
 
     void locate(){
         cout<<"Locate"<<endl;
-        this->segmentsLang = language->getSegmentsLang();
-        cout<<"Size of segmentsLang: "<<this->segmentsLang.size() <<endl;
+        
         
 
         //go through the segmentLang map and get the language with the less bits
         for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
-            cout<<"ofsset: "<<it->first<<endl;
             string Slang=it->second.begin()->first;
             float min=it->second.begin()->second;
             for(auto it2 = it->second.begin(); it2 != it->second.end(); it2++){
-                if(it2->second < min){
+                if(it2->second < min ){
+                    // cout<<"diff: "<<min-(it2->second)<<endl;
                     min = it2->second;
                     Slang = it2->first;
                 }
-                
-                
-                
-
-
 
             }
             located[it->first] = Slang;
-            cout<<"Final lang:"<<Slang<<" offset"<<it->first <<endl;
+            // cout<<"Final lang:"<<Slang<<" offset"<<it->first <<endl;
         }
         //print the located map to a file
         ofstream myfile;
         myfile.open ("located.txt");
+        int o  = 0;
         for(auto it = located.begin(); it != located.end(); it++){
             myfile<<"offset: "<<it->first<<" lang: "<<it->second<<endl;
+            //print in the terminal the offset interval and the lang
+            if (it->second != next(it)->second  || next(it) == located.end()){
+                cout<<"Offset interval: "<<o <<"-"<<it->first<<" Lang Model: "<<it->second<<endl;
+                o = it->first;
+            }
+            
         }
         myfile.close();
-        // for(auto it = located.begin(); it != located.end(); it++){
-        //     cout<<"offset: "<<it->first<<" lang: "<<it->second<<endl;
-        // }
-        language->printSegmentsLang();
+        
     }
 
-    
-
-    // void locateLang(){
-    //     //get the language->segmentsLang and make the comparation in each entry of the map,if the bits for a lang is less than the bits of the other lang, then the lang is the one with the less bits
-    //     for(auto it = segmentsLang.begin(); it != segmentsLang.end(); it++){
-    //         cout << it->first << " " << it->second << endl;
-
-    //     } 
-    // }
-
-
-    
 };

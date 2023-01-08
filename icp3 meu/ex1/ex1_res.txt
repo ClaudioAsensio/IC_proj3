@@ -1,0 +1,176 @@
+Choosen k value: 1
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 3.49526
+Alphabet size: 24
+Choosen k value: 2
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 3.06954
+Alphabet size: 24
+Choosen k value: 3
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 2.53293
+Alphabet size: 24
+Choosen k value: 4
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 1.87498
+Alphabet size: 24
+Choosen k value: 5
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 1.30652
+Alphabet size: 24
+Choosen k value: 6
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.959896
+Alphabet size: 24
+Choosen k value: 7
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.764257
+Alphabet size: 24
+Choosen k value: 8
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.654478
+Alphabet size: 24
+Choosen k value: 9
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.592538
+Alphabet size: 24
+Choosen k value: 10
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.560426
+Alphabet size: 24
+Choosen k value: 11
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.543302
+Alphabet size: 24
+Choosen k value: 12
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.535156
+Alphabet size: 24
+Choosen k value: 13
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.531076
+Alphabet size: 24
+Choosen k value: 14
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.529102
+Alphabet size: 24
+Choosen k value: 15
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.528005
+Alphabet size: 24
+Choosen k value: 16
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.527443
+Alphabet size: 24
+Choosen k value: 17
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.527183
+Alphabet size: 24
+Choosen k value: 18
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.527
+Alphabet size: 24
+Choosen k value: 19
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.526919
+Alphabet size: 24
+Choosen k value: 20
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.526843
+Alphabet size: 24
+Choosen k value: 25
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.526739
+Alphabet size: 24
+Choosen k value: 30
+Choosen smoothing parameter: 0.1
+Text file path: lusiadas.txt
+Total characters read: 276577
+Alphabet:abcdefghijlmnopqrstuvxyz
+Total different characters: 24
+Model entropy: 0.526725
+Alphabet size: 24
