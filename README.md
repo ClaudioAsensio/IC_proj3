@@ -34,8 +34,15 @@ make clean                      # limpar programas de execução
 - Exercício 3:
 
 ```c++
-No diretório sndfile-example-src:
-../sndfile-example-bin/wav_quant sample.wav 0 quantized-sample.wav  # criar ficheiro quantizado
-../sndfile-example-bin/wav_cmp sample.wav quantized-sample.wav      # comparar ficheiro original com o ficheiro quantizado
+No diretorio ex4:
+./mainRun k smoothing_parameter <model1>...<modelx> <targetfile> 
+```
+---
+
+- Exercício 4:
+
+```c++
+No diretorio ex4:
+./mainRun k smoothing_parameter <model1>...<modelx> <targetfile> 
 ```
 ---
