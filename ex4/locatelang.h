@@ -85,6 +85,28 @@ class locatelang{
             located[it->first] = Slang;
             // cout<<"Final lang:"<<Slang<<" offset"<<it->first <<endl;
         }
+
+        //go trough the located and print the intervals
+        int trade = 0;
+        while (trade<this->k)
+        {
+            int p = 0;
+            for (auto it = located.begin(); it != located.end(); it++){
+            if(it->second != next(it)->second || next(it) == located.end()){
+                if ( (next (it)->first - it->first)< (it->first - p)){
+                    located[next(it)->first] = it->second;
+                    // trade ++;
+                }
+                p = it->first;
+            }
+            // cout<<"Offset: "<<it->first<<" Lang: "<<it->second<<endl;
+            }
+            trade++;
+            cout<<"trade: "<<trade<<endl;
+
+        } //short the intervals
+        
+        
         //print the located map to a file
         ofstream myfile;
         myfile.open ("located.txt");
@@ -93,6 +115,7 @@ class locatelang{
             myfile<<"offset: "<<it->first<<" lang: "<<it->second<<endl;
             //print in the terminal the offset interval and the lang
             if (it->second != next(it)->second  || next(it) == located.end()){
+
                 cout<<"Offset interval: "<<o <<"-"<<it->first<<" Lang Model: "<<it->second<<endl;
                 o = it->first;
             }

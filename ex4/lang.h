@@ -75,9 +75,10 @@ class LANG {
         }
 
         bool compareBits(string fPath,string lang){ //only used in ex4
-
+            double tmp=0.0;
+            int counter=0;
             totalCharacters = 0;
-            offset = 0;
+            offset = this->k;
             bool path = open(fPath);
             if(!path)
                 return path;
@@ -87,10 +88,16 @@ class LANG {
             // start reading file
             while(inputFile >> noskipws >> character)
             {
-                // only consider letters and letters with accents
-                offset++;
-                if(isdigit(character)||character == ' ')
+                //get length of the file
+                
+                                
+                
+
+                if(isdigit(character)||character == ' '|| ispunct(character)){
+                    //special chars are counting for 2 offset
+                    // offset++;
                     continue;
+                }
                 character = tolower(character);
                 if(totalCharacters < k)
                 {
@@ -101,11 +108,24 @@ class LANG {
                 }
                 else
                 {
+                    offset=inputFile.tellg();
                     // compute bits based on model
+                    
+                    
+                    tmp+=-log2(fcm->getCharProbability(buffer, character));
                     bits -= log2(fcm->getCharProbability(buffer, character));
-                    segmentsLang[offset][lang] = -log2(fcm->getCharProbability(buffer, character));
+                    //if counter ==10 or end of file do the average
+
+                    if (counter == 10|| (offset-totalCharacters)<10){
+
+                        segmentsLang[offset][lang] = tmp/counter;
+                        counter=0;
+                        tmp=0.0;
+                        // special=0;
+                    }
                     buffer = buffer.substr(1, k);
                     buffer += character;
+                    counter ++;
                 }
                 totalCharacters++;
                 
